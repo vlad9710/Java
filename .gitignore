@@ -15,3 +15,5 @@ gradle-app.setting
 # gradle/wrapper/gradle-wrapper.properties
 *.gradle
 *gradlew.bat
+Java_Barantsev/sandbox/gradlew
+Java_Barantsev/addressbook-web-tests/gradlew
