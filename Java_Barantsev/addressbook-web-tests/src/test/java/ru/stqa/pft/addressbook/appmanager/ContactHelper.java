@@ -11,7 +11,7 @@ public class ContactHelper extends HelperBase {
   }
 
   public void returnToHomePage() {
-    click(By.linkText("home page"));
+    click(By.linkText("home"));
   }
 
   public void submitContactCreation() {
@@ -24,4 +24,15 @@ public class ContactHelper extends HelperBase {
     type(By.name("email"), contactData.email());
   }
 
+  public void initContactModification() {
+    click(By.xpath("//img[@alt='Edit']"));
+  }
+
+  public void submitContactModification() {
+    click(By.name("update"));
+  }
+
+  public void submitContactDeletion() {
+    click(By.xpath("//div[@id='content']/form[2]/input[2]"));
+  }
 }
