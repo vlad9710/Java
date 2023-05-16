@@ -1,7 +1,11 @@
 package ru.stqa.pft.addressbook.appmanager;
 
 import org.openqa.selenium.*;
+import org.openqa.selenium.chrome.ChromeDriver;
+import org.openqa.selenium.chrome.ChromeOptions;
 import org.openqa.selenium.firefox.FirefoxDriver;
+import org.openqa.selenium.ie.InternetExplorerDriver;
+import org.openqa.selenium.remote.Browser;
 
 import java.util.concurrent.TimeUnit;
 
@@ -10,17 +14,32 @@ import static org.testng.Assert.fail;
 public class ApplicationManager {
   protected WebDriver driver;
   private SessionHelper sessionHelper;
-  private  NavigationHelper navigationHelper;
+  private NavigationHelper navigationHelper;
   private GroupHelper groupHelper;
   private ContactHelper contactHelper;
   private String baseUrl;
   private boolean acceptNextAlert = true;
   private StringBuffer verificationErrors = new StringBuffer();
+  private String browser;
+  public ApplicationManager(String browser) {
+    this.browser = browser;
+  }
 
   public void init() {
-    driver = new FirefoxDriver();
+    if (browser.equals(Browser.FIREFOX.browserName())) {
+      driver = new FirefoxDriver();
+    } else if (browser.equals(Browser.CHROME.browserName())) {
+      ChromeOptions chromeOptions = new ChromeOptions();
+      chromeOptions.addArguments("--remote-allow-origins=*", "ignore-certificate-errors");
+      driver = new ChromeDriver(chromeOptions);
+    } else if (browser.equals(Browser.IE.browserName())) {
+      driver = new InternetExplorerDriver();
+    }
+
     baseUrl = "https://www.google.com/";
-    driver.manage().timeouts().implicitlyWait(30, TimeUnit.SECONDS);
+    driver.manage()
+            .timeouts()
+            .implicitlyWait(30, TimeUnit.SECONDS);
     driver.get("http://localhost/addressbook");
     groupHelper = new GroupHelper(driver);
     contactHelper = new ContactHelper(driver);
@@ -28,7 +47,6 @@ public class ApplicationManager {
     sessionHelper = new SessionHelper(driver);
     sessionHelper.login("admin", "secret");
   }
-
 
 
   public void stop() {
@@ -51,7 +69,8 @@ public class ApplicationManager {
 
   private String closeAlertAndGetItsText() {
     try {
-      Alert alert = driver.switchTo().alert();
+      Alert alert = driver.switchTo()
+              .alert();
       String alertText = alert.getText();
       if (acceptNextAlert) {
         alert.accept();
