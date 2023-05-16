@@ -26,13 +26,13 @@ public class ApplicationManager {
   }
 
   public void init() {
-    if (browser == Browser.FIREFOX.browserName()) {
+    if (browser.equals(Browser.FIREFOX.browserName())) {
       driver = new FirefoxDriver();
-    } else if (browser == Browser.CHROME.browserName()) {
+    } else if (browser.equals(Browser.CHROME.browserName())) {
       ChromeOptions chromeOptions = new ChromeOptions();
       chromeOptions.addArguments("--remote-allow-origins=*", "ignore-certificate-errors");
       driver = new ChromeDriver(chromeOptions);
-    } else if (browser == Browser.IE.browserName()) {
+    } else if (browser.equals(Browser.IE.browserName())) {
       driver = new InternetExplorerDriver();
     }
 
