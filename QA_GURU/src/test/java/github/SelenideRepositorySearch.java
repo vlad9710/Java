@@ -9,11 +9,11 @@ public class SelenideRepositorySearch {
 
   @Test
   void shouldFindSelenideRepositoryAtTheTop() {
-    //открыть главную страницу
+    //  открыть главную страницу
     open("http://github.com");
-    //ввести в поле поиска selenide и нажать ентер
+    //  ввести в поле поиска selenide и нажать ентер
     $("[data-scoped-placeholder=Search]").setValue("selenide").pressEnter();
-    //кликнуть на первый репозиторий из списка найденных
+    //  кликнуть на первый репозиторий из списка найденных
     $$("ul.repo-list li").first().$("div.f4").click();
     //проверка: заголовок selenide/selenide
     $("#repository-container-header").shouldHave(text("selenide / selenide"));
