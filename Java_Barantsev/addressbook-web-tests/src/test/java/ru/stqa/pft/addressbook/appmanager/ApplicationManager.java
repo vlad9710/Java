@@ -21,6 +21,7 @@ public class ApplicationManager {
   private boolean acceptNextAlert = true;
   private StringBuffer verificationErrors = new StringBuffer();
   private String browser;
+
   public ApplicationManager(String browser) {
     this.browser = browser;
   }
@@ -39,7 +40,7 @@ public class ApplicationManager {
     baseUrl = "https://www.google.com/";
     driver.manage()
             .timeouts()
-            .implicitlyWait(30, TimeUnit.SECONDS);
+            .implicitlyWait(0, TimeUnit.SECONDS);
     driver.get("http://localhost/addressbook");
     groupHelper = new GroupHelper(driver);
     contactHelper = new ContactHelper(driver);
