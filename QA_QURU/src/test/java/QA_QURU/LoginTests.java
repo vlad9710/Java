@@ -1,17 +1,15 @@
-import com.codeborne.selenide.Configuration;
-import org.junit.jupiter.api.Test;
+package QA_QURU;
 
-import static com.codeborne.selenide.Condition.text;
-import static com.codeborne.selenide.Selenide.$;
-import static com.codeborne.selenide.Selenide.open;
+import com.codeborne.selenide.*;
+import org.junit.jupiter.api.*;
+
+import static com.codeborne.selenide.Condition.*;
+import static com.codeborne.selenide.Selenide.*;
 
 public class LoginTests {
 
   @Test
-  void successfulLoginTests() {
-    Configuration.holdBrowserOpen = true;
-    Configuration.browser = "firefox";
-
+   void successfulLoginTests() {
     open("https://qa.guru/cms/system/login");
     $(".login-form").shouldHave(text("Войти"));
 
@@ -20,12 +18,11 @@ public class LoginTests {
     $(".main-header__login").click();
 
     $(".logined-form").shouldHave(text("Здравствуйте, QA_GURU_BOT"));
+    Selenide.closeWebDriver();
   }
 
   @Test
   void unsuccessfulLoginTests() {
-    Configuration.holdBrowserOpen = true;
-
     open("https://qa.guru/cms/system/login");
     $(".login-form").shouldHave(text("Войти"));
 
