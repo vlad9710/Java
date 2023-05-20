@@ -1,4 +1,4 @@
-package QA_QURU;
+package QA_GURU;
 
 import com.codeborne.selenide.*;
 import org.junit.jupiter.api.*;
